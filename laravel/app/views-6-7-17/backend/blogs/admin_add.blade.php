@@ -1,0 +1,189 @@
+@extends('backend/layouts/default')
+@section('title')
+Add Blog
+@stop
+
+@section('content')
+
+
+<div id="content-header">
+	
+	<div id="breadcrumb"> 
+		<a href="{{ URL::to('admin/dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>Home</a> 
+		<a href="{{ URL::to('admin/blogs') }}" title="Go to Blogs" class="tip-bottom"><i class="icon-list"></i>Blogs</a> 
+		<a href="javascript:;" class="current">Add Blog</a> 
+	</div>
+	
+	<h1>Add Blog</h1>
+	
+</div>
+
+<div class="container-fluid">
+	
+	<hr>
+	
+	<div class="row-fluid">
+		
+		{{ Form::open(array('url' => array('admin/blogs/add'),'method' => 'PUT','files' => true, 'class' => 'cmxform form-horizontal tasi-form')) }}
+		
+		<div class="span12 padding-left-cls">
+			
+			<div class="span12">
+			
+				<?php //echo '<pre>'; print_r(Input::old('roomArr')); die;  ?>
+				
+				<div class="widget-box">
+					
+					<div class="widget-title"> <span class="icon"> <i class="icon-plus"></i> </span>
+						<h5>Add Blog</h5>
+					</div>
+					
+					
+					<div class="widget-content nopadding"> 
+					
+					<div class="control-group">
+							<label class="control-label">Category</label>
+							<div class="controls controls_cls"> 
+								{{ Form::select('subject_id', array(''=>'Please Select'	)+$category,null,array('span11')) }}
+							</div>
+						</div> 
+						
+						
+						<div class="control-group">
+							<label class="control-label">Title <span class='red bold'>*</span></label>
+							<div class="controls">
+								{{ Form::text('title', null, array('class' => 'span11'))}}
+								<span class="red">{{ $errors->first('title') }} </span>
+							</div>
+						</div> 
+
+						<div class="control-group">
+							<label class="control-label">Content</label>
+							<div class="controls">
+							{{ Form::textarea('content', null, array('id' => 'content', 'class' => 'span10 ckeditor')) }}	
+									<span class="red">{{ $errors->first('content') }} </span>
+							</div>
+						</div> 
+						
+						
+						
+						<div class="control-group">
+							<label class="control-label">Image</label>
+							<div class="controls">
+								{{ Form::file('image', null, array('class' => 'span11'))}}
+								<span class="red">{{ $errors->first('image') }} </span>
+							</div>
+						</div> 
+						
+						
+						
+						
+						<div class="control-group">
+							<label class="control-label">Status</label>
+							<div class="controls">
+								{{ Form::select('status',array(''=>'Please Select'	)+Config::get('constants.STATUS'), null, array('class' => 'span11'))}}
+								<span class="red">{{ $errors->first('status') }} </span>
+							</div>
+						</div> 
+						
+						
+						<div class="form-actions">
+							<div class="span8">&nbsp;</div>
+							<button type="submit" class="btn btn-success">Save</button>
+							<a href="{{ URL::to('admin/blogs') }}" class="btn btn-default" >Cancel</a>
+						</div>
+						
+					</div>
+				</div> 
+			</div> 
+			
+			
+			
+			
+		</div> 
+		
+		{{ Form::close() }}
+		
+	</div>
+</div> 
+	
+	
+<script type="text/javascript">
+
+    var placeSearch, autocomplete;
+    var componentForm = {
+        //street_number: 'short_name',
+        route: 'long_name',
+        //locality: 'long_name',
+       // administrative_area_level_1: 'short_name',
+       // country: 'long_name',
+       // postal_code: 'short_name'
+    };
+
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete')),
+            {types: ['geocode']}
+		);
+        autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+        
+        var place = autocomplete.getPlace();
+        for (var component in componentForm) {
+          document.getElementById(component).value = '';
+          document.getElementById(component).disabled = false;
+        }
+
+        for (var i = 0; i < place.address_components.length; i++) {
+			var addressType = place.address_components[i].types[0];
+			if (componentForm[addressType]) {
+				var val = place.address_components[i][componentForm[addressType]];
+				document.getElementById(addressType).value = val;
+			}
+        }
+    }
+ 
+    function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+    }
+	
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{Config::get('constants.API_KEY_GOOGLE')}}&libraries=places&callback=initAutocomplete" async defer></script>
+
+<script type="text/javascript">
+	
+	function getRoom(){
+	
+		var room_rent_type = $('#room_size').val();
+		
+		$.ajax({
+			url: "{{URL::to('admin/get-room-html')}}",
+			type: "POST", 
+			dataType: "html",
+			data: {room_rent_type:room_rent_type},
+			success: function(data){
+				$('.roomHtml').html(data);
+			},
+			error: function(data,status,e){
+				 
+			}
+		});
+	}
+	
+</script>
+
+@stop

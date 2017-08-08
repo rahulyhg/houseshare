@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">  
+		  
+		<link rel="shortcut icon" href="<?php echo asset('favicon.ico'); ?>">
+		
+		<title>
+			<?php $__env->startSection('title'); ?>
+			<?php echo Session::get('SiteValue.site_name'); ?>
+
+			<?php echo $__env->yieldSection(); ?>
+		</title>  
+		
+		<?php echo HTML::style('css/frontend/bootstrap.min.css'); ?>
+
+		<?php echo HTML::style('css/fonts/ionicons/css/ionicons.min.css'); ?>  
+		<?php echo HTML::style('css/frontend/owl.carousel.css'); ?>  
+		<?php echo HTML::style('css/frontend/owl.theme.default.css'); ?>  
+		<?php echo HTML::style('css/frontend/animate.min.css'); ?>  
+		<?php echo HTML::style('css/frontend/magnific-popup.css'); ?>  
+		<?php echo HTML::style('css/frontend/tagsinput.css'); ?>  
+		<?php echo HTML::style('css/frontend/style.css'); ?>  
+		<?php echo HTML::style('css/frontend/font-awesome.css'); ?>  
+		<?php echo HTML::style('css/frontend/font-awesome.min.css'); ?>  
+		<?php echo HTML::style('css/frontend/jquery-ui.css'); ?>   
+		
+		<?php echo HTML::script('js/frontend/jquery-3.1.1.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/jquery-ui.js'); ?> 
+		<?php echo HTML::script('js/frontend/bootstrapValidator.min.js'); ?>
+
+		 
+	</head>
+	<!-- END HEAD -->
+	
+	<!-- BEGIN BODY -->
+	<body>
+		
+		<?php echo $__env->make('frontend/layouts/header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
+		<?php echo $__env->yieldContent('content'); ?>
+		
+		<?php echo $__env->make('frontend/layouts/footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+		
+		
+		<?php echo HTML::script('js/frontend/bootstrap.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/owl.carousel.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/wow.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/typehead.js'); ?>
+
+		<?php echo HTML::script('js/frontend/tagsinput.js'); ?>
+
+		<?php echo HTML::script('js/frontend/bootstrap-select.js'); ?>
+
+		<?php echo HTML::script('js/frontend/jquery.waypoints.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/jquery.countTo.js'); ?>
+
+		<?php echo HTML::script('js/frontend/isotope.pkgd.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/imagesloaded.pkgd.min.js'); ?>
+
+		<?php echo HTML::script('js/frontend/jquery.magnific-popup.js'); ?>
+
+		<?php echo HTML::script('js/frontend/scripts.js'); ?>
+
+		<?php /*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy-PboZ3O_A25CcJ9eoiSrKokTnWyAmt8"></script>*/?>
+  	
+	</body>
+	<!-- END BODY -->
+</html>

@@ -1,0 +1,14 @@
+<?php 
+$action  = (Route::currentRouteAction())?explode('@', Route::currentRouteAction()):'';
+$controller		= (isset($action[0]) and $action[0])?$action[0]:'';
+$current_action = (isset($action[1]) and $action[1])?$action[1]:''; ?>
+	
+<ul class="nav nav-tabs">
+	<li class="<?php echo ($controller=='UserController' && in_array($current_action,array('myaccount')))?'active':''; ?>"><a class="outline-cls" href="<?php echo URL::to('my-account'); ?>">My Account</a></li>
+	<li class="<?php echo ($controller=='UserController' && in_array($current_action,array('saved_ads')))?'active':''; ?>"><a class="outline-cls" href="<?php echo URL::to('saved-ads'); ?>">Saved Ads (<?php echo GeneralHelper::getSavedAdCount(); ?>)</a></li>
+	<?php /*<li><a class="outline-cls" href="javascript:;">Saved Search (0)</a></li>*/ ?>
+	<li class="<?php echo (($controller=='UserController' || $controller=='PropertyController') && in_array($current_action,array('my_ads','ad_images','ads_edit')))?'active':''; ?>"><a class="outline-cls" href="<?php echo URL::to('my-ads'); ?>">My Ads (<?php echo GeneralHelper::getMyadCount(); ?>)</a></li>
+	<li class="<?php echo ($controller=='UserController' && in_array($current_action,array('who_interested')))?'active':''; ?>"><a class="outline-cls" href="<?php echo URL::to('who-interested'); ?>">Who's interested  (<?php echo GeneralHelper::getInterestedCount(); ?>)</a></li>
+	<li class="<?php echo ($controller=='MessageController' && in_array($current_action,array('index','send','compose')))?'active':''; ?>"><a class="outline-cls" href="<?php echo URL::to('messages'); ?>">Messages</a></li>
+	<li class="<?php echo ($controller=='UserController' && in_array($current_action,array('update_profile')))?'active':''; ?>"><a class="outline-cls" href="<?php echo URL::to('update-profile'); ?>">Edit My Details</a></li>
+</ul>

@@ -1,0 +1,45 @@
+<?php $__env->startSection('title'); ?>
+Advertise your <?php echo Session::get('SiteValue.site_name'); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<div class="section job-post-form-section solid-light-grey-bg">
+	<div class="inner">
+		<div class="container">
+			
+			<div class="job-post-form multisteps-form">
+			
+				<?php if(Route::input('slug')=='rooms-to-rent'): ?>
+					<?php echo $__env->make('Elements/Property/rooms_to_rent', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+				<?php elseif(Route::input('slug')=='whole-property-to-let'): ?>
+					<?php echo $__env->make('Elements/Property/whole_property_to_let', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+				<?php elseif(Route::input('slug')=='room-wanted'): ?>
+					<?php echo $__env->make('Elements/Property/room_wanted', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+				<?php endif; ?>
+			
+			</div>
+			
+		</div>
+	</div>
+</div> 
+
+
+<script>
+	
+	jQuery(document).ready(function(){
+	
+		$('.datepicker').datepicker({
+			dateFormat: 'yy-mm-dd',
+			changeMonth: true,
+			changeYear: true
+		});
+		
+		jQuery('#add_post_form').bootstrapValidator();
+	});
+	 
+</script>
+
+<?php $__env->stopSection(); ?>																																				
+<?php echo $__env->make('frontend/layouts/default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

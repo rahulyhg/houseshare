@@ -1,0 +1,31 @@
+<?php $__env->startSection('title'); ?>
+Saved Ads
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?> 
+
+<div class="section candidate-dashboard-content solid-light-grey-bg">
+	<div class="inner">
+		<div class="container">
+			<div class="candidate-dashboard-wrapper flex space-between no-wrap">
+			
+				<div class="right-side-content"> 
+					
+					<?php echo $__env->make('Elements/User/my_account_top', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+					
+					<div class="tab-content" style="padding:10px;">
+						<?php echo $__env->make('Elements/User/my_account_saved_ads', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+					</div>
+				</div>
+				
+				<div class="left-sidebar-menu">
+					<?php echo $__env->make('Elements/User/my_account_left_side', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+				</div>	
+				
+			</div>
+		</div>
+	</div>
+</div> 
+
+<?php $__env->stopSection(); ?>								
+<?php echo $__env->make('frontend/layouts/default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

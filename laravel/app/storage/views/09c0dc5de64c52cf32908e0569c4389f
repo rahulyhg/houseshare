@@ -1,0 +1,74 @@
+<?php $__env->startSection('title'); ?>
+	Setting Management 
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+  
+
+<div id="content-header">
+
+	<div id="breadcrumb"> 
+		<a href="<?php echo URL::to('admin/dashboard'); ?>" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>Home</a> 
+		<a href="javascript:;" class="current">General Settings</a> 
+	</div>
+	
+	<h1>Setting <small>General Settings</small></h1>
+	
+</div>
+
+<div class="container-fluid">
+
+	<hr>
+	
+	<div class="row-fluid">
+	
+		<?php echo Form::open(array('url' => array('admin/settings/general'),'class' => 'cmxform form-horizontal tasi-form', 'method'=>'PUT')); ?>
+
+		
+			<div class="span12 padding-left-cls">
+			
+				<div class="span6">
+				
+					<div class="widget-box">
+					
+						<div class="widget-title"> <span class="icon"> <i class="icon-edit"></i> </span>
+							<h5>General Settings</h5>
+						</div>
+						
+						<div class="widget-content nopadding">  
+						
+							<?php $i = 1;?>
+							<?php foreach($settings as $val): ?>
+								<div class="control-group">
+									<label class="control-label"><?php echo $val->label; ?> <span class='red bold'>*</span></label>
+									<div class="controls">
+										<?php echo Form::hidden('label' .$i, $val->label, array('class' => 'span11')); ?>
+
+										<?php echo Form::hidden('id' .$i, $val->id, array('class' => 'span11')); ?>
+
+										<?php echo Form::text('value'.$i, $val->value, array('class' => 'span11')); ?>
+
+										<span class="help-block"><?php echo $val->description; ?></span>
+										<span class="red"><?php echo $errors->first('value'.$i); ?></span>
+									</div>
+								</div> 
+								<?php $i++; ?>
+							<?php endforeach; ?> 
+
+							<div style="text-align: center;" class="form-actions">
+								<button type="submit" class="btn btn-success">Update</button>
+							</div>
+							
+						</div>
+					</div> 
+				</div> 
+			</div> 
+		
+		<?php echo Form::close(); ?>
+
+		
+	</div>
+</div> 
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('backend/layouts/default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

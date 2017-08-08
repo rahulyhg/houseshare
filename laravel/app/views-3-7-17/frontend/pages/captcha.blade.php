@@ -1,0 +1,1 @@
+<?php echo HTML::image(Captcha::img(), 'captcha', array('class' => 'img-captcha')); ?>

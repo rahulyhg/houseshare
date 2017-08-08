@@ -1,0 +1,85 @@
+<?php
+$action 		= (Route::currentRouteAction())?explode('@', Route::currentRouteAction()):'';
+$controller		= (isset($action[0]) and $action[0])?$action[0]:'';
+$current_action = (isset($action[1]) and $action[1])?$action[1]:'';
+$role_id = Route::input('role_id');  ?>
+
+
+<div id="sidebar">
+
+	<a href="{{ URL::to('admin/dashboard') }}" class="visible-phone"><i class="icon icon-home"></i>Dashboard</a>
+		
+	<ul><?php
+	
+		$class = (($controller=='AdminController') && $current_action == 'getDashBoard') ?'active':null; ?>
+		<li class="{{$class}}">
+			<a href="{{ URL::to('admin/dashboard') }}"><i class="icon-dashboard"></i><span>Dashboard</span></a> 
+		</li><?php
+	
+		$class = ($current_action == 'admin_update_profile') ?'active open':null; ?>
+		<li class="submenu {{$class}}"> 
+			<a href="javascript:;"><i class="icon-user"></i><span>Admin Management</span></a>
+			<ul>
+				<li class="<?php echo ( $current_action == 'admin_update_profile')?'active':''; ?>"><a  href="{{ URL::to('admin/update_profile') }}">Update Profile</a></li>
+				<li class="<?php echo ( $current_action == 'admin_change_password')?'active':''; ?>"><a  href="{{ URL::to('admin/users/change_password/1/'. Auth::id()) }}">Change Password</a></li>
+			</ul>
+		</li><?php
+	
+		$class = (($controller =="UserController" && (in_array($current_action, array('admin_view', 'admin_edit', 'admin_add', 'admin_index', 'admin_change_password')))))?'active open':null;  ?>
+		<li class="submenu {{$class}}"> 
+			<a href="javascript:;"><i class="icon-user"></i><span>User Management</span></a>
+			<ul>
+				<li class="<?php echo ($role_id  == 1 && in_array($current_action, array('admin_view', 'admin_edit', 'admin_index','admin_change_password')))?'active':''; ?>"><a  href="{{ URL::to('admin/users/1') }}">Admin</a></li>
+				<li class="<?php echo ($role_id  == 2 && in_array($current_action, array('admin_view', 'admin_edit', 'admin_index','admin_change_password')))?'active':''; ?>"><a  href="{{ URL::to('admin/users/2') }}">{{Config::get('constants.USER_ROLES.2')}}</a></li>
+				<li class="<?php echo ($current_action == 'admin_add')?'active':''; ?>"><a  href="{{ URL::to('admin/users/add') }}">Create a User</a></li>
+			</ul>
+		</li><?php
+	
+		$class = ($controller == 'FaqController' && in_array($current_action, array('admin_index','admin_view', 'admin_add', 'admin_edit')))?'active open':null;  ?>
+		<li class="submenu {{$class}}"> 
+			<a href="javascript:;"><i class="icon-question-sign"></i><span>Faq Management</span></a>
+			<ul>
+				<li class="<?php echo ($controller == 'FaqController' && in_array($current_action, array( 'admin_index', 'admin_edit', 'admin_view')))?'active':''; ?>"><a  href="{{ URL::to('admin/faqs') }}">FAQs</a></li>
+				<li class="<?php echo ($controller == 'FaqController' && in_array($current_action, array( 'admin_add')))?'active':''; ?>"><a  href="{{ URL::to('admin/faqs/add') }}">Add Faq</a></li>
+			</ul>
+		</li><?php
+	
+		$class = ($controller == 'PropertyController' && in_array($current_action, array('admin_index','admin_view', 'admin_add', 'admin_edit')))?'active open':null;  ?>
+		<li class="submenu {{$class}}"> 
+			<a href="javascript:;"><i class="icon-home"></i><span>Property Management</span></a>
+			<ul>
+				<li class="<?php echo ($controller == 'PropertyController' && in_array($current_action, array('admin_index', 'admin_edit', 'admin_view')))?'active':''; ?>"><a  href="{{ URL::to('admin/properties') }}">Properties</a></li>
+				<!--<li class="<?php //echo ($controller == 'PropertyController' && in_array($current_action, array('admin_add')))?'active':''; ?>"><a  href="{{ URL::to('admin/properties/add') }}">Add Property</a></li>-->
+			</ul>
+		</li><?php
+	
+
+	
+		$class = ($controller == 'BlogController' && in_array($current_action, array('admin_index_blog','admin_blog_edit','admin_add', 'admin_edit','admin_categories','admin_blog_comment','admin_blog_comment_edit')))?'active open':null;  ?>
+		<li class="submenu {{$class}}"> 
+			<a href="javascript:;"><i class="icon-home"></i><span>Blog Management</span></a>
+			<ul>
+				<li class="<?php echo ($controller == 'BlogController' && in_array($current_action, array('admin_index_blog', 'admin_blog_editt')))?'active':''; ?>"><a  href="{{ URL::to('admin/blogs') }}">Blogs</a></li>
+				<li class="<?php echo ($controller == 'BlogController' && in_array($current_action, array('admin_add')))?'active':''; ?>"><a  href="{{ URL::to('admin/blogs/add') }}">Add Blogs</a></li>
+				<li class="<?php echo ($controller == 'BlogController' && in_array($current_action, array('admin_categories')))?'active':''; ?>"><a  href="{{ URL::to('admin/blogs/categories') }}">Categories</a></li>
+			</ul>
+		</li><?php
+	
+		$class = (($controller == "PageController" && in_array($current_action, array( 'admin_index', 'admin_edit', 'admin_general_setting', 'admin_card_templates'))) OR in_array($current_action, array('email_templates', 'update_template', 'admin_general_setting','admin_card_templates','admin_add_card_template','admin_edit_card_template','admin_languages','admin_languages_add','admin_languages_edit','admin_hobbies','admin_hobbies_add','admin_hobbies_edit','admin_amenities','admin_amenities_add','admin_amenities_edit')))?'active open':null; ?>
+		<li class="submenu {{$class}}"> 
+			<a href="javascript:;"><i class="icon icon-cog"></i><span>Settings</span></a>
+			<ul>
+				<li class ="<?php echo ($current_action == 'admin_general_setting')?'active':null; ?>"><a  href="{{ URL::to('admin/settings/general') }}">General Settings</a></li>
+				<li class ="<?php echo ($current_action == 'email_templates' OR $current_action == 'update_template')?'active':null; ?>"><a  href="{{ URL::to('admin/settings/email-templates') }}">Email Templates</a></li>
+				<li class ="<?php echo ($controller == 'PageController' && ($current_action == 'admin_index' || $current_action == 'admin_edit'))?'active':null; ?>"><a  href="{{ URL::to('admin/pages') }}">Static pages</a></li>
+				<li class ="<?php echo ($controller == 'PageController' && ($current_action == 'admin_languages' || $current_action == 'admin_languages_add' || $current_action == 'admin_languages_edit'))?'active':null; ?>"><a  href="{{ URL::to('admin/languages') }}">Languages</a></li>
+				<li class ="<?php echo ($controller == 'PageController' && ($current_action == 'admin_hobbies' || $current_action == 'admin_hobbies_add' || $current_action == 'admin_hobbies_edit'))?'active':null; ?>"><a  href="{{ URL::to('admin/hobbies') }}">Hobbies</a></li>
+				<li class ="<?php echo ($controller == 'PageController' && ($current_action == 'admin_amenities' || $current_action == 'admin_amenities_add' || $current_action == 'admin_amenities_edit'))?'active':null; ?>"><a  href="{{ URL::to('admin/amenities') }}">Amenities</a></li>
+			</ul>
+		</li>
+		
+		<li>
+			<a href="{{ URL::to('admin/logout') }}"><i class="icon icon-share-alt"></i><span>Logout</span></a> 
+		</li> 
+	</ul>
+</div>

@@ -1,0 +1,58 @@
+<?php if($room_rent_type): ?> <?php
+	for($j=1; $j<=$room_rent_type; $j++) { ?>
+	
+		<div class="title_cls">Room <?php echo $j; ?></div>
+
+		<div class="control-group">
+			<label class="control-label">Available? <span class='red bold'>*</span></label>
+			<div class="controls controls_cls">
+				<label class="span3"><?php echo Form::radio('roomArr['.$j.'][available_type]', '1'); ?>&nbsp;<?php echo Config::get('constants.AVAILABLE_TYPE.1'); ?></label>
+				<label class="span3"><?php echo Form::radio('roomArr['.$j.'][available_type]', '2'); ?>&nbsp;<?php echo Config::get('constants.AVAILABLE_TYPE.2'); ?></label>
+			</div>
+		</div> 
+			
+		<div class="control-group">
+			<label class="control-label">Cost of room <span class='red bold'>*</span></label>
+			<div class="controls">
+				<?php echo Form::text('roomArr['.$j.'][room_cost]', null, array('class' => 'span4')); ?>
+
+				<span class="red"><?php echo $errors->first('room_cost'); ?> </span>
+			</div>
+			<div style="padding: 0px;" class="controls">
+				<label class="span4"><?php echo Form::radio('roomArr['.$j.'][room_cost_type]', '1'); ?>&nbsp;<?php echo Config::get('constants.ROOM_COST_TYPE.1'); ?></label>
+				<label class="span6"><?php echo Form::radio('roomArr['.$j.'][room_cost_type]', '2'); ?>&nbsp;<?php echo Config::get('constants.ROOM_COST_TYPE.2'); ?></label>
+				<span class="red"><?php echo $errors->first('roomArr['.$j.'][room_cost_type]'); ?> </span>
+			</div>
+		</div> 
+		
+		<div class="control-group">
+			<label class="control-label">Size of room <span class='red bold'>*</span></label>
+			<div class="controls controls_cls">
+				<label class="span3"><?php echo Form::radio('roomArr['.$j.'][room_size_type]', '1'); ?>&nbsp;<?php echo Config::get('constants.ROOM_SIZE_TYPE.1'); ?></label>
+				<label class="span3"><?php echo Form::radio('roomArr['.$j.'][room_size_type]', '2'); ?>&nbsp;<?php echo Config::get('constants.ROOM_SIZE_TYPE.2'); ?></label>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Amenities</label>
+			<div class="controls controls_cls">
+				<?php foreach($amenities as $key_amenitie=>$amenitie_val): ?>
+					<label><?php echo Form::checkbox('roomArr['.$j.'][amenitie_id][]', $key_amenitie); ?>&nbsp;<?php echo $amenitie_val; ?></label>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Security Deposit</label>
+			<div class="controls">
+				<?php echo Form::text('roomArr['.$j.'][security_deposit]', null, array('class' => 'span4')); ?>
+
+				<span class="red"><?php echo $errors->first('security_deposit'); ?> </span>
+			</div>
+		</div> 
+		
+		
+		<?php
+		
+	} ?>
+<?php endif; ?>

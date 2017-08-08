@@ -1,0 +1,84 @@
+<?php $__env->startSection('title'); ?>
+Housesharemarket
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<div class="section breadcrumb-bar solid-blue-bg">
+	<div class="inner">
+		<div class="container">
+			<p class="breadcrumb-menu">
+				<a href="index.php"><i class="ion-ios-home"></i></a>
+				<i class="ion-ios-arrow-right arrow-right"></i>
+				<a href="<?php echo URL::to('listing'); ?>">Listing</a>
+				<i class="ion-ios-arrow-right arrow-right"></i>
+				<a href="javascript:;">Email advertiser</a>
+			</p>
+			<h2 class="breadcrumb-title">Email advertiser</h2>
+		</div> 
+	</div> 
+</div>
+
+
+<div class="section contact-us-section">
+	<div class="inner">
+		<div class="container">
+			<div class="contact-us-section-inner  space-between no-wrap">
+				
+				<div class="col-sm-12">
+					<h3>&nbsp;<?php echo $data->title; ?></h3>
+				</div>
+				
+				<div class="col-sm-12">
+					<h3><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Contact the advertiser of this flatshare by email</h3>
+				</div>
+				
+				<div class="col-sm-2">&nbsp;</div>
+				<div class="col-sm-6">
+					<?php echo Form::open(array('url'=>url('/email-advertiser/'.Route::input('id')),'id'=>'contact-form', 'class'=>'contact-form')); ?>
+
+						
+						<div class="form-group-wrapper flex space-between items-center">
+							<div class="form-group">
+								<label>To:</label>
+								<label><?php echo $data->user_first_name.' '.$data->user_last_name; ?></label>
+							</div>
+							<div class="form-group">
+								<label>Subject:</label>
+								<label>Re: <?php echo $data->title; ?></label>
+							</div> 
+						</div>
+						 
+						<div class="form-group textarea">
+							<label class="">Message<span class="red">*</span></label>
+							<?php echo Form::textarea('message', null, array('rows' => 3, 'class'=>"", 'placeholder'=>'Message...')); ?> 
+							<span class="red"><?php echo $errors->first('message'); ?></span>
+						</div>
+						
+						<?php if(Auth::check()): ?>
+							<div class="form-group-wrapper flex space-between items-center">
+								<div class="form-group">
+									<label>From:</label>
+									<label><?php echo Auth::user()->first_name.' '.Auth::user()->last_name.'&nbsp;('. Auth::user()->email.')'; ?></label>
+								</div>
+							</div>
+							<button type="submit" class="button" data-text="Submit">Send</button>
+						<?php else: ?>
+							<a href="javascript:;" data-toggle="modal" data-target="#myModal" class="button" id="login">Log In</a>
+						<?php endif; ?>
+						 
+						 
+					<?php echo Form::close(); ?> 
+				</div>
+				<div class="col-sm-4">&nbsp;</div>
+				 
+				
+				 
+			</div> 
+		</div> 
+	</div> 
+</div> 
+
+  
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend/layouts/default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
